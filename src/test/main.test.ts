@@ -16,11 +16,15 @@ describe("getMovies", () => {
 describe("searchMovies", () => {
   test("검색한 영화 목록을 반환한다", async () => {
     const movies = await searchMovies("해리포터");
-    console.log(movies);
 
     expect(movies).toBeDefined();
     if (movies) {
       expect(movies.length).toBeGreaterThan(0);
     }
+  });
+
+  test("검색 결과가 없다면 빈 목록을 반환한다", async () => {
+    const movies = await searchMovies("");
+    expect(movies).toEqual([]);
   });
 });
