@@ -1,11 +1,14 @@
-import image from "../templates/images/star_filled.png";
+import { getMovies } from "./getMovies";
+import { movieListRender } from "./movieListRender";
+import { movieBanner } from "./movieBanner";
 
-addEventListener("load", () => {
+addEventListener("load", async () => {
   const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
 
   if (app) {
-    app.appendChild(buttonImage);
+    const popularMovies: Movies[] | undefined = await getMovies();
+    if (popularMovies === undefined) return;
+    movieBanner(popularMovies[0]);
+    movieListRender(popularMovies);
   }
 });
