@@ -7,14 +7,14 @@ const options = {
   },
 };
 
-export async function getMovies(): Promise<Movies[] | undefined> {
+export async function searchMovies(
+  query: string,
+): Promise<Movies[] | undefined> {
   try {
     const response: Response = await fetch(
-      "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1",
+      `https://api.themoviedb.org/3/search/movie?language=ko-KR&query=${query}&page=1`,
       options,
     );
-
-    if (!response.ok) throw new Error("Error");
 
     const data: movieResponse = await response.json();
     return data.results;
