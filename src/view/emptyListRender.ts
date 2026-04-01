@@ -1,5 +1,6 @@
 export function emptyListRender() {
   const thumbnailList = document.querySelector<HTMLElement>(".thumbnail-list");
+  const addBtn = document.querySelector<HTMLButtonElement>("#add-button");
 
   const emptyList = /*html*/ `
         <li class="thumbnail-empty">
@@ -10,5 +11,9 @@ export function emptyListRender() {
 
   if (thumbnailList) {
     thumbnailList.innerHTML = emptyList;
+  }
+
+  if (addBtn) {
+    addBtn.style.display = "none";
   }
 }

@@ -1,5 +1,6 @@
 export function errorListRender() {
   const thumbnailList = document.querySelector<HTMLElement>(".thumbnail-list");
+  const addBtn = document.querySelector<HTMLButtonElement>("#add-button");
 
   const errorList = /*html*/ `
         <li class="thumbnail-empty">
@@ -10,5 +11,9 @@ export function errorListRender() {
 
   if (thumbnailList) {
     thumbnailList.innerHTML = errorList;
+  }
+
+  if (addBtn) {
+    addBtn.style.display = "none";
   }
 }
