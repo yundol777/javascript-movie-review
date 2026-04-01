@@ -1,5 +1,18 @@
 @import "./colors.css";
 
+.thumbnail-container {
+  width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.thumbnail-title {
+  font-size: 28px;
+  font-weight: 600;
+}
+
 .thumbnail-list {
   margin: 0 auto 56px;
   display: grid;
@@ -37,4 +50,15 @@ p.rate > span {
 .item .star {
   width: 16px;
   top: 1px;
+}
+
+.thumbnail-add-button {
+  background-color: var(--color-lightblue-90);
+  width: 100%;
+  color: var(--color-white);
+  border-radius: 8px;
+  padding: 10px 0;
+  font-weight: semibold;
+  font-size: 24px;
+  cursor: pointer;
 }
