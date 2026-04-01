@@ -1,18 +1,26 @@
 import { getMovies } from "../getMovies";
-import { movieListRender } from "../movieListRender";
+import { movieListRender } from "../view/movieListRender";
 import { searchMovies } from "../searchMovies";
+import {
+  skeletonListRemover,
+  skeletonListRender,
+} from "../view/skeletonListRender";
 
 export async function getMorePopular(page: number) {
+  skeletonListRender(20);
   const popularMoviesData: movieResponse | undefined = await getMovies(page);
   if (popularMoviesData === undefined) return;
+  skeletonListRemover();
   movieListRender(popularMoviesData.results);
 
   return popularMoviesData;
 }
 
 export async function getMoreSearch(page: number, searchValue: string) {
+  skeletonListRender(20);
   const searchMoviesData = await searchMovies(searchValue, page);
   if (searchMoviesData === undefined) return;
+  skeletonListRemover();
   movieListRender(searchMoviesData.results);
 
   return searchMoviesData;
