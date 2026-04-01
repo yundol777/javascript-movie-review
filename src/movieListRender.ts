@@ -10,6 +10,7 @@ export function movieListRender(popularMovies: Movies[]): void {
             class="thumbnail"
             src=${thumbnailImage + item.poster_path}
             alt=${item.title}
+            onerror="this.onerror=null; this.src='../templates/images/no-image.png'"
         />
           <div class="item-desc">
             <p class="rate">
