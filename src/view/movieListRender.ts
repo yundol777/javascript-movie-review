@@ -1,6 +1,6 @@
 export function movieListRender(popularMovies: Movies[]): void {
   const thumbnailList = document.querySelector(".thumbnail-list");
-  const thumbnailImage = "https://media.themoviedb.org/t/p/w440_and_h660_face";
+  const thumbnailImage = "https://media.themoviedb.org/t/p/w300_and_h450_face";
 
   popularMovies?.forEach((item) => {
     const list = /*html*/ `
