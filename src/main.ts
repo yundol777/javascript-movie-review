@@ -42,6 +42,10 @@ form?.addEventListener("submit", async (event) => {
   event.preventDefault();
   page = 1;
 
+  if (addBtn) {
+    addBtn.style.display = "block";
+  }
+
   searchValue = inputView();
   searchController(page, searchValue);
 
