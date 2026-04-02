@@ -1,4 +1,4 @@
-import { searchMovies } from "../searchMovies";
+import { searchMovies } from "../api/searchMovies";
 import { movieListRender } from "../view/movieListRender";
 import { resetListRender } from "../view/resetListRender";
 import { emptyListRender } from "../view/emptyListRender";

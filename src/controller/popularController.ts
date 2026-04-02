@@ -1,5 +1,5 @@
-import { getMovies } from "../getMovies";
-import { movieBanner } from "../movieBanner";
+import { getMovies } from "../api/getMovies";
+import { movieBanner } from "../view/movieBanner";
 import { movieListRender } from "../view/movieListRender";
 import { errorListRender } from "../view/errorListRender";
 import {

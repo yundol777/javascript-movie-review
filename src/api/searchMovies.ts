@@ -17,6 +17,8 @@ export async function searchMovies(
       options,
     );
 
+    if (!response.ok) throw new Error("Error");
+
     const data: movieResponse = await response.json();
     return data;
   } catch (e) {

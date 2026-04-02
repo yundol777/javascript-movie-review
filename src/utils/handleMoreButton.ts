@@ -1,6 +1,6 @@
-import { getMovies } from "../getMovies";
+import { getMovies } from "../api/getMovies";
 import { movieListRender } from "../view/movieListRender";
-import { searchMovies } from "../searchMovies";
+import { searchMovies } from "../api/searchMovies";
 import {
   skeletonListRemover,
   skeletonListRender,
