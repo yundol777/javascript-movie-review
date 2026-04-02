@@ -23,7 +23,8 @@ section {
 }
 
 main {
-  margin: 64px 0;
+  padding: 64px 0;
+  background-color: var(--color-bluegray-100);
 }
 
 .star {

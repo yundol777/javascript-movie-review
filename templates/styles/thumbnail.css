@@ -1,6 +1,7 @@
 @import "./colors.css";
 
 .thumbnail-container {
+  position: relative;
   width: 1280px;
   margin: 0 auto;
   display: flex;
@@ -61,4 +62,19 @@ p.rate > span {
   font-weight: semibold;
   font-size: 24px;
   cursor: pointer;
+}
+
+.thumbnail-empty {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.empty-message {
+  font-size: 36px;
+  font-weight: 600;
 }
