@@ -17,9 +17,9 @@ export function movieListRender(popularMovies: Movies[]): void {
               <img
                 src="./templates/images/star_empty.png"
                 class="star"
-              /><span>${item.vote_average}</span>
+              /><span class="item-rate">${item.vote_average}</span>
             </p>
-            <strong>${item.title}</strong>
+            <strong class="item-title">${item.title}</strong>
           </div>
         </div>
         </li>
