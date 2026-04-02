@@ -82,7 +82,7 @@ function movieListRender(popularMovies) {
           <div class="item-desc">
             <p class="rate">
               <img
-                src="./public/images/star_empty.png"
+                src="../public/images/star_empty.png"
                 class="star"
               /><span class="item-rate">${item.vote_average}</span>
             </p>
@@ -102,7 +102,7 @@ function errorListRender() {
     /*html*/
     `
         <li class="thumbnail-empty">
-            <img src="./public/images/empty_icon.png" alt="empty list" class="empty-icon" />
+            <img src="../public/images/empty_icon.png" alt="empty list" class="empty-icon" />
             <p class="empty-message">영화 정보를 불러오지 못했습니다. 다시 시도해주세요.</p>
         </li>
     `
@@ -221,7 +221,7 @@ function emptyListRender() {
     /*html*/
     `
         <li class="thumbnail-empty">
-            <img src="./public/images/empty_icon.png" alt="empty list" class="empty-icon" />
+            <img src="../public/images/empty_icon.png" alt="empty list" class="empty-icon" />
             <p class="empty-message">검색 결과가 없습니다.</p>
         </li>
     `
