@@ -1,11 +1,4 @@
-const token = import.meta.env.VITE_API_TOKEN;
-const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization: `Bearer ${token}`,
-  },
-};
+import { OPTIONS } from "../constants/api";
 
 export async function searchMovies(
   query: string,
@@ -14,7 +7,7 @@ export async function searchMovies(
   try {
     const response: Response = await fetch(
       `https://api.themoviedb.org/3/search/movie?language=ko-KR&query=${query}&page=${page}`,
-      options,
+      OPTIONS,
     );
 
     if (!response.ok) throw new Error("Error");

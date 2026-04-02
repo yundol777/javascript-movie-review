@@ -8,10 +8,11 @@ import {
   skeletonListRemover,
   skeletonListRender,
 } from "../view/skeletonListRender";
+import { SKELETON_NUMBER } from "../constants/constant";
 
 export async function searchController(page: number, searchValue: string) {
   resetListRender();
-  skeletonListRender(20);
+  skeletonListRender(SKELETON_NUMBER);
   const searchMoviesResult: movieResponse | undefined = await searchMovies(
     searchValue,
     page,

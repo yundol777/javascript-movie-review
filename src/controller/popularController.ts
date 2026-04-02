@@ -6,9 +6,10 @@ import {
   skeletonListRemover,
   skeletonListRender,
 } from "../view/skeletonListRender";
+import { SKELETON_NUMBER } from "../constants/constant";
 
 export async function popularController(page: number) {
-  skeletonListRender(20);
+  skeletonListRender(SKELETON_NUMBER);
   const popularMovies: movieResponse | undefined = await getMovies(page);
   if (popularMovies === undefined) {
     errorListRender();
