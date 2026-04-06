@@ -9,29 +9,33 @@ import {
   skeletonListRender,
 } from "../view/skeletonListRender";
 import { SKELETON_NUMBER } from "../constants/constant";
+import { ResponseError } from "../error/responseError";
 
 export async function searchController(page: number, searchValue: string) {
-  resetListRender();
-  skeletonListRender(SKELETON_NUMBER);
-  const searchMoviesResult: movieResponse | undefined = await searchMovies(
-    searchValue,
-    page,
-  );
+  try {
+    resetListRender();
+    skeletonListRender(SKELETON_NUMBER);
+    const searchMoviesResult: movieResponse = await searchMovies(
+      searchValue,
+      page,
+    );
 
-  if (searchMoviesResult === undefined) {
-    skeletonListRemover();
-    errorListRender();
-    return;
-  }
-  if (searchMoviesResult.total_results === 0) {
-    skeletonListRemover();
-    emptyListRender();
-    return;
-  }
-  if (searchMoviesResult.page === searchMoviesResult.total_pages) {
-    controlMoreButton.hide();
-  }
+    if (searchMoviesResult.total_results === 0) {
+      emptyListRender();
+      return;
+    }
+    if (searchMoviesResult.page === searchMoviesResult.total_pages) {
+      controlMoreButton.hide();
+    }
 
-  skeletonListRemover();
-  movieListRender(searchMoviesResult.results);
+    movieListRender(searchMoviesResult.results);
+  } catch (error) {
+    if (error instanceof ResponseError) {
+      if (error.type === "HTTP") errorListRender();
+      if (error.type === "NETWORK") errorListRender();
+      errorListRender();
+    }
+  } finally {
+    skeletonListRemover();
+  }
 }

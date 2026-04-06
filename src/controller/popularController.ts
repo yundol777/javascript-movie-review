@@ -7,16 +7,29 @@ import {
   skeletonListRender,
 } from "../view/skeletonListRender";
 import { SKELETON_NUMBER } from "../constants/constant";
+import { ResponseError } from "../error/responseError";
+import { emptyListRender } from "../view/emptyListRender";
 
 export async function popularController(page: number) {
-  skeletonListRender(SKELETON_NUMBER);
-  const popularMovies: movieResponse | undefined = await getMovies(page);
-  if (popularMovies === undefined) {
-    errorListRender();
-    return;
-  }
+  try {
+    skeletonListRender(SKELETON_NUMBER);
 
-  skeletonListRemover();
-  movieBanner(popularMovies.results[0]);
-  movieListRender(popularMovies.results);
+    const popularMovies: movieResponse = await getMovies(page);
+
+    if (popularMovies.results.length === 0) {
+      emptyListRender();
+      return;
+    }
+
+    movieBanner(popularMovies.results[0]);
+    movieListRender(popularMovies.results);
+  } catch (error) {
+    if (error instanceof ResponseError) {
+      if (error.type === "HTTP") errorListRender();
+      if (error.type === "NETWORK") errorListRender();
+      errorListRender();
+    }
+  } finally {
+    skeletonListRemover();
+  }
 }

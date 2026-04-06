@@ -34,7 +34,6 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
           VITE_API_TOKEN: ${{ secrets.VITE_API_TOKEN }}
 
       - name: Upload artifact
