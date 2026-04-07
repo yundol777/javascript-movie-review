@@ -1,4 +1,7 @@
 import { ERROR_MESSAGE } from "../constants/error";
+import emptyStar from "../asset/images/star_empty.png";
+import emptyIcon from "../asset/images/empty_icon.png";
+import noImage from "../asset/images/no-image.png";
 
 export class MovieListView {
   #titleSection;
@@ -25,12 +28,12 @@ export class MovieListView {
             class="thumbnail"
             src=${thumbnailImage + item.poster_path}
             alt=${item.title}
-            onerror="this.onerror=null; this.src='./src/asset/images/no-image.png'"
+            onerror="this.onerror=null; this.src='${noImage}'"
         />
           <div class="item-desc">
             <p class="rate">
               <img
-                src="./src/asset/images/star_empty.png"
+                src="${emptyStar}"
                 class="star"
               /><span class="item-rate">${item.vote_average}</span>
             </p>
@@ -49,7 +52,7 @@ export class MovieListView {
     this.reset();
     const emptyList = /*html*/ `
         <li class="thumbnail-empty">
-            <img src="./src/asset/images/empty_icon.png" alt="empty list" class="empty-icon" />
+            <img src="${emptyIcon}" alt="empty list" class="empty-icon" />
             <p class="empty-message">${ERROR_MESSAGE.EMPTY}</p>
         </li>
     `;
@@ -62,7 +65,7 @@ export class MovieListView {
     this.reset();
     const emptyList = /*html*/ `
         <li class="thumbnail-empty">
-            <img src="./src/asset/images/empty_icon.png" alt="empty list" class="empty-icon" />
+            <img src="${emptyIcon}" alt="empty list" class="empty-icon" />
             <p class="empty-message">${message}</p>
         </li>
     `;
