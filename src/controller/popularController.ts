@@ -1,35 +1,33 @@
 import { getMovies } from "../api/getMovies";
-import { movieBanner } from "../view/movieBanner";
-import { movieListRender } from "../view/movieListRender";
-import { errorListRender } from "../view/errorListRender";
-import {
-  skeletonListRemover,
-  skeletonListRender,
-} from "../view/skeletonListRender";
 import { SKELETON_NUMBER } from "../constants/constant";
 import { ResponseError } from "../error/responseError";
-import { emptyListRender } from "../view/emptyListRender";
 
-export async function popularController(page: number) {
+export async function popularController(
+  page: number,
+  MovieListView: MovieListViewType,
+  MovieBannerView: MovieBannerViewType,
+) {
   try {
-    skeletonListRender(SKELETON_NUMBER);
+    MovieListView.reset();
+    MovieListView.skeletonRender(SKELETON_NUMBER);
 
     const popularMovies: movieResponse = await getMovies(page);
 
     if (popularMovies.results.length === 0) {
-      emptyListRender();
+      MovieListView.emptyRender();
       return;
     }
 
-    movieBanner(popularMovies.results[0]);
-    movieListRender(popularMovies.results);
+    MovieBannerView.render(popularMovies.results[0]);
+    MovieListView.render(popularMovies.results);
   } catch (error) {
     if (error instanceof ResponseError) {
-      if (error.type === "HTTP") errorListRender();
-      if (error.type === "NETWORK") errorListRender();
-      errorListRender();
+      if (error.type === "HTTP") MovieListView.errorRender();
+      if (error.type === "NETWORK") MovieListView.errorRender();
+
+      MovieListView.errorRender();
     }
   } finally {
-    skeletonListRemover();
+    MovieListView.skeletonRemover();
   }
 }

@@ -1,41 +1,38 @@
 import { searchMovies } from "../api/searchMovies";
-import { movieListRender } from "../view/movieListRender";
-import { resetListRender } from "../view/resetListRender";
-import { emptyListRender } from "../view/emptyListRender";
-import { errorListRender } from "../view/errorListRender";
-import { controlMoreButton } from "../view/moreButtonView";
-import {
-  skeletonListRemover,
-  skeletonListRender,
-} from "../view/skeletonListRender";
 import { SKELETON_NUMBER } from "../constants/constant";
 import { ResponseError } from "../error/responseError";
 
-export async function searchController(page: number, searchValue: string) {
+export async function searchController(
+  page: number,
+  searchValue: string,
+  movieListView: MovieListViewType,
+  addButtonView: AddButtonViewType,
+) {
   try {
-    resetListRender();
-    skeletonListRender(SKELETON_NUMBER);
+    movieListView.reset();
+    movieListView.skeletonRender(SKELETON_NUMBER);
+
     const searchMoviesResult: movieResponse = await searchMovies(
       searchValue,
       page,
     );
 
     if (searchMoviesResult.total_results === 0) {
-      emptyListRender();
+      movieListView.emptyRender();
       return;
     }
     if (searchMoviesResult.page === searchMoviesResult.total_pages) {
-      controlMoreButton.hide();
+      addButtonView.hide();
     }
 
-    movieListRender(searchMoviesResult.results);
+    movieListView.render(searchMoviesResult.results);
   } catch (error) {
     if (error instanceof ResponseError) {
-      if (error.type === "HTTP") errorListRender();
-      if (error.type === "NETWORK") errorListRender();
-      errorListRender();
+      if (error.type === "HTTP") movieListView.errorRender();
+      if (error.type === "NETWORK") movieListView.errorRender();
+      movieListView.errorRender();
     }
   } finally {
-    skeletonListRemover();
+    movieListView.skeletonRemover();
   }
 }
