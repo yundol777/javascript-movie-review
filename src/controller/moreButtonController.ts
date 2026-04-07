@@ -7,19 +7,21 @@ export async function morePopularController(
   movieListView: MovieListViewType,
 ) {
   movieListView.skeletonRender(SKELETON_NUMBER);
-  const popularMoviesData: movieResponse = await getMovies(page + 1);
+  const popularMoviesData: movieResponse = await getMovies(page);
   if (popularMoviesData === undefined) return;
   movieListView.skeletonRemover();
   movieListView.render(popularMoviesData.results);
 }
 
 export async function moreSearchController(
-  page: number,
-  searchValue: string,
+  state: AppStateType,
   movieListView: MovieListViewType,
 ) {
   movieListView.skeletonRender(SKELETON_NUMBER);
-  const searchMoviesData = await searchMovies(searchValue, page + 1);
+  const searchMoviesData = await searchMovies(
+    state.getSearchValue(),
+    state.getPage(),
+  );
   if (searchMoviesData === undefined) return;
   movieListView.skeletonRemover();
   movieListView.render(searchMoviesData.results);

@@ -3,8 +3,7 @@ import { SKELETON_NUMBER } from "../constants/constant";
 import { ResponseError } from "../error/responseError";
 
 export async function searchController(
-  page: number,
-  searchValue: string,
+  state: AppStateType,
   movieListView: MovieListViewType,
   addButtonView: AddButtonViewType,
 ) {
@@ -13,8 +12,8 @@ export async function searchController(
     movieListView.skeletonRender(SKELETON_NUMBER);
 
     const searchMoviesResult: movieResponse = await searchMovies(
-      searchValue,
-      page,
+      state.getSearchValue(),
+      state.getPage(),
     );
 
     if (searchMoviesResult.total_results === 0) {
