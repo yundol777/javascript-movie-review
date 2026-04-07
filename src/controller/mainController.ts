@@ -59,9 +59,17 @@ export class MainController {
     this.#appState.increasePage();
 
     if (this.#appState.getIsSearch()) {
-      moreSearchController(this.#appState, this.#movieListView);
+      moreSearchController(
+        this.#appState,
+        this.#movieListView,
+        this.#addButtonView,
+      );
     } else {
-      morePopularController(this.#appState.getPage(), this.#movieListView);
+      morePopularController(
+        this.#appState.getPage(),
+        this.#movieListView,
+        this.#addButtonView,
+      );
     }
   }
 }
