@@ -25,12 +25,12 @@ export class MovieListView {
             class="thumbnail"
             src=${thumbnailImage + item.poster_path}
             alt=${item.title}
-            onerror="this.onerror=null; this.src='../public/images/no-image.png'"
+            onerror="this.onerror=null; this.src='./src/asset/images/no-image.png'"
         />
           <div class="item-desc">
             <p class="rate">
               <img
-                src="../../public/images/star_empty.png"
+                src="./src/asset/images/star_empty.png"
                 class="star"
               /><span class="item-rate">${item.vote_average}</span>
             </p>
@@ -49,7 +49,7 @@ export class MovieListView {
     this.reset();
     const emptyList = /*html*/ `
         <li class="thumbnail-empty">
-            <img src="../../public/images/empty_icon.png" alt="empty list" class="empty-icon" />
+            <img src="./src/asset/images/empty_icon.png" alt="empty list" class="empty-icon" />
             <p class="empty-message">${ERROR_MESSAGE.EMPTY}</p>
         </li>
     `;
@@ -62,7 +62,7 @@ export class MovieListView {
     this.reset();
     const emptyList = /*html*/ `
         <li class="thumbnail-empty">
-            <img src="../../public/images/empty_icon.png" alt="empty list" class="empty-icon" />
+            <img src="./src/asset/images/empty_icon.png" alt="empty list" class="empty-icon" />
             <p class="empty-message">${message}</p>
         </li>
     `;

@@ -37,6 +37,7 @@ export class MainController {
       this.#appState.getPage(),
       this.#movieListView,
       this.#movieBannerView,
+      this.#addButtonView,
     );
   }
 

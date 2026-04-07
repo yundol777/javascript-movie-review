@@ -18,6 +18,7 @@ export async function searchController(
     );
     if (searchMoviesResult.total_results === 0) {
       movieListView.emptyRender();
+      addButtonView.hide();
       return;
     }
     if (isLastPage(searchMoviesResult)) {

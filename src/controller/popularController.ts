@@ -7,6 +7,7 @@ export async function popularController(
   page: number,
   movieListView: MovieListViewType,
   movieBannerView: MovieBannerViewType,
+  addButtonView: AddButtonViewType,
 ) {
   try {
     movieListView.reset();
@@ -14,6 +15,7 @@ export async function popularController(
     const popularMovies: movieResponse = await getMovies(page);
     if (popularMovies.results.length === 0) {
       movieListView.emptyRender();
+      addButtonView.hide();
       return;
     }
     movieBannerView.render(popularMovies.results[0]);
