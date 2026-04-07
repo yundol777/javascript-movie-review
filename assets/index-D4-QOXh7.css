@@ -30,6 +30,7 @@ section {
   justify-content: center;
 }
 main {
+  min-height: 400px;
   padding: 64px 0;
   background-color: var(--color-bluegray-100);
 }
