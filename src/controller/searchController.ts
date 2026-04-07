@@ -1,5 +1,6 @@
 import { searchMovies } from "../api/searchMovies";
 import { SKELETON_NUMBER } from "../constants/constant";
+import { ERROR_MESSAGE } from "../constants/error";
 import { ResponseError } from "../error/responseError";
 import { isLastPage } from "../utils/isLastPage";
 
@@ -25,9 +26,15 @@ export async function searchController(
     movieListView.render(searchMoviesResult.results);
   } catch (error) {
     if (error instanceof ResponseError) {
-      if (error.type === "HTTP") movieListView.errorRender();
-      if (error.type === "NETWORK") movieListView.errorRender();
-      movieListView.errorRender();
+      if (error.type === "HTTP") {
+        movieListView.errorRender(ERROR_MESSAGE.HTTP);
+        return;
+      }
+      if (error.type === "NETWORK") {
+        movieListView.errorRender(ERROR_MESSAGE.NETWORK);
+        return;
+      }
+      movieListView.errorRender(ERROR_MESSAGE.DEFAULT);
     }
   } finally {
     movieListView.skeletonRemover();

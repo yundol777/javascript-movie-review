@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE } from "../constants/error";
+
 export class MovieListView {
   #titleSection;
   #listSection;
@@ -48,7 +50,7 @@ export class MovieListView {
     const emptyList = /*html*/ `
         <li class="thumbnail-empty">
             <img src="../../public/images/empty_icon.png" alt="empty list" class="empty-icon" />
-            <p class="empty-message">검색 결과가 없습니다.</p>
+            <p class="empty-message">${ERROR_MESSAGE.EMPTY}</p>
         </li>
     `;
 
@@ -56,12 +58,12 @@ export class MovieListView {
     this.#listSection.innerHTML = emptyList;
   }
 
-  errorRender() {
+  errorRender(message: string) {
     this.reset();
     const emptyList = /*html*/ `
         <li class="thumbnail-empty">
             <img src="../../public/images/empty_icon.png" alt="empty list" class="empty-icon" />
-            <p class="empty-message">영화 정보를 불러오지 못했습니다. 다시 시도해주세요.</p>
+            <p class="empty-message">${message}</p>
         </li>
     `;
 

@@ -2,7 +2,7 @@ interface MovieListViewType {
   setTitle(title: string): void;
   render(movieList: Movies[]): void;
   emptyRender(): void;
-  errorRender(): void;
+  errorRender(message: string): void;
   skeletonRender(count?: number): void;
   skeletonRemover(): void;
   reset(): void;
