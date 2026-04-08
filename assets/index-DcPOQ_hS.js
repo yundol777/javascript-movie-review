@@ -47,7 +47,7 @@ class ResponseError extends Error {
 async function getMovies(page) {
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=${page}`,
+      `https://api.themoviedb.org/3/movie/popular?language=ko-KR&region=KR&page=${page}`,
       OPTIONS
     );
     if (!response.ok) {
@@ -65,7 +65,7 @@ async function getMovies(page) {
 async function searchMovies(query, page) {
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?language=ko-KR&query=${query}&page=${page}`,
+      `https://api.themoviedb.org/3/search/movie?language=ko-KR&region=KR&query=${query}&page=${page}`,
       OPTIONS
     );
     if (!response.ok) {
@@ -90,11 +90,14 @@ const ERROR_MESSAGE = {
 function isLastPage(moviesData) {
   return moviesData.page === moviesData.total_pages;
 }
-async function morePopularController(page, movieListView, addButtonView) {
+async function morePopularController(state, movieListView, addButtonView) {
   try {
     movieListView.skeletonRender(SKELETON_NUMBER);
-    const popularMoviesData = await getMovies(page);
+    const popularMoviesData = await getMovies(
+      state.getNextPage()
+    );
     if (isLastPage(popularMoviesData)) addButtonView.hide();
+    state.increasePage();
     movieListView.render(popularMoviesData.results);
   } catch (error) {
     if (error instanceof ResponseError) {
@@ -117,20 +120,24 @@ async function moreSearchController(state, movieListView, addButtonView) {
     movieListView.skeletonRender(SKELETON_NUMBER);
     const searchMoviesData = await searchMovies(
       state.getSearchValue(),
-      state.getPage()
+      state.getNextPage()
     );
     if (isLastPage(searchMoviesData)) addButtonView.hide();
+    state.increasePage();
     movieListView.render(searchMoviesData.results);
   } catch (error) {
     if (error instanceof ResponseError) {
       if (error.type === "HTTP") {
+        addButtonView.hide();
         movieListView.errorRender(ERROR_MESSAGE.HTTP);
         return;
       }
       if (error.type === "NETWORK") {
+        addButtonView.hide();
         movieListView.errorRender(ERROR_MESSAGE.NETWORK);
         return;
       }
+      addButtonView.hide();
       movieListView.errorRender(ERROR_MESSAGE.DEFAULT);
     }
   } finally {
@@ -153,13 +160,16 @@ async function popularController(page, movieListView, movieBannerView, addButton
     if (error instanceof ResponseError) {
       if (error.type === "HTTP") {
         movieListView.errorRender(ERROR_MESSAGE.HTTP);
+        addButtonView.hide();
         return;
       }
       if (error.type === "NETWORK") {
         movieListView.errorRender(ERROR_MESSAGE.NETWORK);
+        addButtonView.hide();
         return;
       }
       movieListView.errorRender(ERROR_MESSAGE.DEFAULT);
+      addButtonView.hide();
     }
   } finally {
     movieListView.skeletonRemover();
@@ -185,13 +195,16 @@ async function searchController(state, movieListView, addButtonView) {
   } catch (error) {
     if (error instanceof ResponseError) {
       if (error.type === "HTTP") {
+        addButtonView.hide();
         movieListView.errorRender(ERROR_MESSAGE.HTTP);
         return;
       }
       if (error.type === "NETWORK") {
+        addButtonView.hide();
         movieListView.errorRender(ERROR_MESSAGE.NETWORK);
         return;
       }
+      addButtonView.hide();
       movieListView.errorRender(ERROR_MESSAGE.DEFAULT);
     }
   } finally {
@@ -403,6 +416,9 @@ class AppState {
   getPage() {
     return this.#page;
   }
+  getNextPage() {
+    return this.#page + 1;
+  }
   getSearchValue() {
     return this.#searchValue;
   }
@@ -455,7 +471,6 @@ class MainController {
     );
   }
   async #handleAddButton() {
-    this.#appState.increasePage();
     if (this.#appState.getIsSearch()) {
       moreSearchController(
         this.#appState,
@@ -464,7 +479,7 @@ class MainController {
       );
     } else {
       morePopularController(
-        this.#appState.getPage(),
+        this.#appState,
         this.#movieListView,
         this.#addButtonView
       );
