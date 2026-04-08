@@ -25,6 +25,10 @@ export class AppState {
     return this.#page;
   }
 
+  getNextPage() {
+    return this.#page + 1;
+  }
+
   getSearchValue() {
     return this.#searchValue;
   }

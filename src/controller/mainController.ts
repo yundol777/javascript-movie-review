@@ -57,8 +57,6 @@ export class MainController {
   }
 
   async #handleAddButton() {
-    this.#appState.increasePage();
-
     if (this.#appState.getIsSearch()) {
       moreSearchController(
         this.#appState,
@@ -67,7 +65,7 @@ export class MainController {
       );
     } else {
       morePopularController(
-        this.#appState.getPage(),
+        this.#appState,
         this.#movieListView,
         this.#addButtonView,
       );

@@ -6,14 +6,17 @@ import { ResponseError } from "../error/responseError";
 import { isLastPage } from "../utils/isLastPage";
 
 export async function morePopularController(
-  page: number,
+  state: AppStateType,
   movieListView: MovieListViewType,
   addButtonView: AddButtonViewType,
 ) {
   try {
     movieListView.skeletonRender(SKELETON_NUMBER);
-    const popularMoviesData: movieResponse = await getMovies(page);
+    const popularMoviesData: movieResponse = await getMovies(
+      state.getNextPage(),
+    );
     if (isLastPage(popularMoviesData)) addButtonView.hide();
+    state.increasePage();
     movieListView.render(popularMoviesData.results);
   } catch (error) {
     if (error instanceof ResponseError) {
@@ -41,9 +44,10 @@ export async function moreSearchController(
     movieListView.skeletonRender(SKELETON_NUMBER);
     const searchMoviesData = await searchMovies(
       state.getSearchValue(),
-      state.getPage(),
+      state.getNextPage(),
     );
     if (isLastPage(searchMoviesData)) addButtonView.hide();
+    state.increasePage();
     movieListView.render(searchMoviesData.results);
   } catch (error) {
     if (error instanceof ResponseError) {
