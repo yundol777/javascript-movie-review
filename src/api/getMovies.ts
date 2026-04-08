@@ -4,7 +4,7 @@ import { ResponseError } from "../error/responseError";
 export async function getMovies(page: number): Promise<movieResponse> {
   try {
     const response: Response = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=${page}`,
+      `https://api.themoviedb.org/3/movie/popular?language=ko-KR&region=KR&page=${page}`,
       OPTIONS,
     );
 

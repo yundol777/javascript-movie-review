@@ -1,6 +1,6 @@
 describe("홈 화면 테스트", () => {
   beforeEach(() => {
-    cy.intercept("GET", "**/movie/popular?language=ko-KR&page=1").as(
+    cy.intercept("GET", "**/movie/popular?language=ko-KR&region=KR&page=1").as(
       "getMovies",
     );
     cy.visit("http://localhost:5173");
@@ -49,8 +49,12 @@ describe("홈 화면 테스트", () => {
 
 describe("더보기 버튼 테스트", () => {
   beforeEach(() => {
-    cy.intercept("GET", "**/movie/popular?language=ko-KR&page=1").as("page1");
-    cy.intercept("GET", "**/movie/popular?language=ko-KR&page=2").as("page2");
+    cy.intercept("GET", "**/movie/popular?language=ko-KR&region=KR&page=1").as(
+      "page1",
+    );
+    cy.intercept("GET", "**/movie/popular?language=ko-KR&region=KR&page=2").as(
+      "page2",
+    );
 
     cy.visit("http://localhost:5173");
   });

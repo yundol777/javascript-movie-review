@@ -24,13 +24,16 @@ export async function popularController(
     if (error instanceof ResponseError) {
       if (error.type === "HTTP") {
         movieListView.errorRender(ERROR_MESSAGE.HTTP);
+        addButtonView.hide();
         return;
       }
       if (error.type === "NETWORK") {
         movieListView.errorRender(ERROR_MESSAGE.NETWORK);
+        addButtonView.hide();
         return;
       }
       movieListView.errorRender(ERROR_MESSAGE.DEFAULT);
+      addButtonView.hide();
     }
   } finally {
     movieListView.skeletonRemover();

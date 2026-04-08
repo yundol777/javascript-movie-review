@@ -28,13 +28,16 @@ export async function searchController(
   } catch (error) {
     if (error instanceof ResponseError) {
       if (error.type === "HTTP") {
+        addButtonView.hide();
         movieListView.errorRender(ERROR_MESSAGE.HTTP);
         return;
       }
       if (error.type === "NETWORK") {
+        addButtonView.hide();
         movieListView.errorRender(ERROR_MESSAGE.NETWORK);
         return;
       }
+      addButtonView.hide();
       movieListView.errorRender(ERROR_MESSAGE.DEFAULT);
     }
   } finally {

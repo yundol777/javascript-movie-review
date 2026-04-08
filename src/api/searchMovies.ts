@@ -7,7 +7,7 @@ export async function searchMovies(
 ): Promise<movieResponse> {
   try {
     const response: Response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?language=ko-KR&query=${query}&page=${page}`,
+      `https://api.themoviedb.org/3/search/movie?language=ko-KR&region=KR&query=${query}&page=${page}`,
       OPTIONS,
     );
 
