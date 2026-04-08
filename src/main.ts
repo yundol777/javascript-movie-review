@@ -1,11 +1,4 @@
-import image from "../templates/images/star_filled.png";
+import { MainController } from "./controller/mainController";
 
-addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
-
-  if (app) {
-    app.appendChild(buttonImage);
-  }
-});
+const mainController = new MainController();
+mainController.init();
