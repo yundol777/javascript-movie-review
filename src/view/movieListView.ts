@@ -6,10 +6,13 @@ import noImage from "../asset/images/no-image.png";
 export class MovieListView {
   #titleSection;
   #listSection;
+  #handle;
 
-  constructor() {
+  constructor(handle: (id: string) => void) {
     this.#listSection = document.querySelector(".thumbnail-list");
     this.#titleSection = document.querySelector("#thumbnail-title");
+    this.#handle = handle;
+    this.#binding();
   }
 
   setTitle(title: string) {
@@ -22,7 +25,7 @@ export class MovieListView {
 
     movieList?.forEach((item) => {
       const list = /*html*/ `
-      <li id=${item.id}>
+      <li id=${item.id} class="thumbnail-item">
         <div class="item">
           <img
             class="thumbnail"
@@ -45,6 +48,20 @@ export class MovieListView {
 
       if (!this.#listSection) return;
       this.#listSection.insertAdjacentHTML("beforeend", list);
+    });
+  }
+
+  #binding() {
+    if (!this.#listSection) return;
+
+    this.#listSection.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const item = target.closest("li");
+      if (!item?.id) return;
+
+      this.#handle(item.id);
     });
   }
 

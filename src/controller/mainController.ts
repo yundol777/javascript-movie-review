@@ -9,20 +9,25 @@ import { MovieBannerView } from "../view/movieBannerView";
 import { MovieListView } from "../view/movieListView";
 import { SearchView } from "../view/searchView";
 import { AppState } from "../state/appState";
+import { ModalView } from "../view/modalView";
 
 export class MainController {
   #movieListView;
   #movieBannerView;
   #searchView;
   #addButtonView;
+  #modalView;
 
   #appState;
 
   constructor() {
-    this.#movieListView = new MovieListView();
+    this.#movieListView = new MovieListView((id: string) =>
+      this.#handleMovieItem(id),
+    );
     this.#movieBannerView = new MovieBannerView();
     this.#searchView = new SearchView(() => this.#handleSearch());
     this.#addButtonView = new AddButtonView(() => this.#handleAddButton());
+    this.#modalView = new ModalView();
 
     this.#appState = new AppState();
   }
@@ -70,5 +75,9 @@ export class MainController {
         this.#addButtonView,
       );
     }
+  }
+
+  async #handleMovieItem(id: string) {
+    this.#modalView.isOpen();
   }
 }
