@@ -10,6 +10,7 @@ import { MovieListView } from "../view/movieListView";
 import { SearchView } from "../view/searchView";
 import { AppState } from "../state/appState";
 import { ModalView } from "../view/modalView";
+import { modalController } from "./modalController";
 
 export class MainController {
   #movieListView;
@@ -78,6 +79,7 @@ export class MainController {
   }
 
   async #handleMovieItem(id: string) {
-    this.#modalView.isOpen();
+    this.#modalView.open();
+    modalController(id, this.#modalView);
   }
 }

@@ -17,3 +17,9 @@ interface AddButtonViewType {
   show(): void;
   hide(): void;
 }
+
+interface ModalViewType {
+  open(): void;
+  close(): void;
+  render(item: MovieItem): void;
+}

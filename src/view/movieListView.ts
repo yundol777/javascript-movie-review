@@ -1,7 +1,8 @@
 import { ERROR_MESSAGE } from "../constants/error";
-import emptyStar from "../asset/images/star_empty.png";
-import emptyIcon from "../asset/images/empty_icon.png";
-import noImage from "../asset/images/no-image.png";
+
+const emptyStar = "/images/star_empty.png";
+const emptyIcon = "/images/empty_icon.png";
+const noImage = "/images/no-image.png";
 
 export class MovieListView {
   #titleSection;
