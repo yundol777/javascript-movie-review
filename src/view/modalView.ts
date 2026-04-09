@@ -12,6 +12,13 @@ export class ModalView {
     if (!this.#closeButton) return;
 
     this.#closeButton.addEventListener("click", () => this.isClose());
+    window.addEventListener("keydown", (event) => this.#escFunction(event));
+  }
+
+  #escFunction(event: KeyboardEvent) {
+    if (event.key === "Escape") {
+      this.isClose();
+    }
   }
 
   isOpen() {
