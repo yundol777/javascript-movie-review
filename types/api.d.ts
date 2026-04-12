@@ -18,6 +18,11 @@ interface MovieItem {
   poster_path: string;
   vote_average: number;
   release_date: string;
-  tagline: string;
+  genres: Genre[];
   overview: string;
+}
+
+interface Genre {
+  id: number;
+  name: string;
 }

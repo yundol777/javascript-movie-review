@@ -1,8 +1,8 @@
 import { ERROR_MESSAGE } from "../constants/error";
 
-const emptyStar = "/images/star_empty.png";
-const emptyIcon = "/images/empty_icon.png";
-const noImage = "/images/no-image.png";
+const emptyStar = "./src/asset/images/star_empty.png";
+const emptyIcon = "./src/asset/images/empty_icon.png";
+const noImage = "./src/asset/images/no-image.png";
 
 export class MovieListView {
   #titleSection;
@@ -39,7 +39,7 @@ export class MovieListView {
               <img
                 src="${emptyStar}"
                 class="star"
-              /><span class="item-rate">${item.vote_average}</span>
+              /><span class="item-rate">${item.vote_average.toFixed(1)}</span>
             </p>
             <strong class="item-title">${item.title}</strong>
           </div>

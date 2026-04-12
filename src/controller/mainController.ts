@@ -11,6 +11,7 @@ import { SearchView } from "../view/searchView";
 import { AppState } from "../state/appState";
 import { ModalView } from "../view/modalView";
 import { modalController } from "./modalController";
+import { rateController } from "./rateController";
 
 export class MainController {
   #movieListView;
@@ -28,7 +29,7 @@ export class MainController {
     this.#movieBannerView = new MovieBannerView();
     this.#searchView = new SearchView(() => this.#handleSearch());
     this.#addButtonView = new AddButtonView(() => this.#handleAddButton());
-    this.#modalView = new ModalView();
+    this.#modalView = new ModalView((id: string) => this.#handleRate(id));
 
     this.#appState = new AppState();
   }
@@ -80,6 +81,10 @@ export class MainController {
 
   async #handleMovieItem(id: string) {
     this.#modalView.open();
-    modalController(id, this.#modalView);
+    modalController(id, this.#modalView, this.#appState);
+  }
+
+  async #handleRate(rate: string) {
+    rateController(rate, this.#modalView, this.#appState);
   }
 }

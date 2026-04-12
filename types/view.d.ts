@@ -21,5 +21,6 @@ interface AddButtonViewType {
 interface ModalViewType {
   open(): void;
   close(): void;
-  render(item: MovieItem): void;
+  render(item: MovieItem, count: number): void;
+  renderRate(rate: number);
 }
