@@ -16,14 +16,21 @@ export class ModalView {
   }
 
   #modalBinding() {
-    if (!this.#closeButton) return;
-
-    this.#closeButton.addEventListener("click", () => this.close());
+    this.#closeButton?.addEventListener("click", () => this.close());
+    this.#modalSection?.addEventListener("click", (event) =>
+      this.#backgroundClose(event),
+    );
     window.addEventListener("keydown", (event) => this.#escFunction(event));
   }
 
   #escFunction(event: KeyboardEvent) {
     if (event.key === "Escape") {
+      this.close();
+    }
+  }
+
+  #backgroundClose(event: Event) {
+    if (event.target === this.#modalSection) {
       this.close();
     }
   }
