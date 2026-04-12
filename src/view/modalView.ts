@@ -45,14 +45,12 @@ export class ModalView {
               </p>
               <div class="rate-section">
                 <p>평균</p>
-                <p class="rate">
-                  <img src="./src/asset/images/star_filled.png" class="star" /><span
-                    >${item.vote_average.toFixed(1)}</span
-                  >
-                </p>
+                <div class="rate">
+                  <img src="./src/asset/images/star_filled.png" class="star" />
+                  <p>${item.vote_average.toFixed(1)}</p>
+                </div>
               </div>
             </div>
-            <hr />
             <div class="modal-myrate-section">
               <h3 class="myrate-title">내 별점</h3>
               <div class="myrate-section">
@@ -62,7 +60,6 @@ export class ModalView {
                 <p class="myrate-comment">${USER_RATE[rateCount]} <span "myrate-score">(${rateCount * 2}/10)</span></p>
               </div>
             </div>
-            <hr />
             <div class="modal-detail-section">
               <h3 class="detail-title">줄거리</h3>
               <p class="detail">

@@ -66,23 +66,100 @@ body.modal-open {
   padding: 8px;
   margin-left: 16px;
   line-height: 1.6rem;
-}
 
-.modal-description .rate > img {
-  position: relative;
-  top: 5px;
-}
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
-.modal-description > *:not(:last-child) {
-  margin-bottom: 8px;
+  height: 545px;
+  overflow: hidden;
 }
 
 .modal-description h2 {
-  font-size: 2rem;
+  font-size: 32px;
+  font-weight: 700;
   margin: 0 0 8px;
+}
+
+.modal-description h3 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.modal-title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rate-section {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.rate {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.rate img {
+  height: 100%;
+}
+
+.rate p {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-yellow);
 }
 
 .detail {
   max-height: 430px;
   overflow-y: auto;
+}
+
+.modal-myrate-section {
+  padding: 24px 0;
+  border-top: 1px solid var(--color-bluegray-30);
+  border-bottom: 1px solid var(--color-bluegray-30);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.myrate-section {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.myrate-stars {
+  width: 170px;
+  box-sizing: content-box;
+  display: flex;
+  gap: 2;
+}
+
+.myrate-stars img {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  top: -2px;
+  cursor: pointer;
+}
+
+.modal-detail-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.detail {
+  flex: 1;
+  overflow-y: scroll;
 }

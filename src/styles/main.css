@@ -162,7 +162,7 @@ h1.logo {
 
 .rate > img {
   position: relative;
-  top: 2px;
+  top: -2px;
 }
 
 span.rate-value {
