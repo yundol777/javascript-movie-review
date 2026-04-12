@@ -1,5 +1,7 @@
 import { getDetail } from "../api/getDetail";
 import { getRate } from "../api/getRate";
+import { ERROR_MESSAGE } from "../constants/error";
+import { ResponseError } from "../error/responseError";
 
 export async function modalController(
   id: string,
@@ -17,5 +19,17 @@ export async function modalController(
       return;
     }
     modalView.render(movieDetail, Number(myRate));
-  } catch (error) {}
+  } catch (error) {
+    if (error instanceof ResponseError) {
+      if (error.type === "HTTP") {
+        modalView.errorRender(ERROR_MESSAGE.HTTP);
+        return;
+      }
+      if (error.type === "NETWORK") {
+        modalView.errorRender(ERROR_MESSAGE.NETWORK);
+        return;
+      }
+    }
+    modalView.errorRender(ERROR_MESSAGE.DEFAULT);
+  }
 }

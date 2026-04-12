@@ -24,6 +24,7 @@ interface ModalViewType {
   render(item: MovieItem, count: number): void;
   renderRate(rate: number);
   skeletonRender(): void;
+  errorRender(message: string): void;
 }
 
 interface InfiniteScrollViewType {

@@ -107,6 +107,18 @@ export class ModalView {
     `;
   }
 
+  errorRender(message: string) {
+    const emptyList = /*html*/ `
+          <div class="modal-error">
+            <img src="./src/asset/images/empty_icon.png" alt="empty_icon" />
+            <p>${message}</p>
+          </div>
+    `;
+
+    if (!this.#detailSection) return;
+    this.#detailSection.innerHTML = emptyList;
+  }
+
   renderRate(rate: number) {
     const myComment = this.#detailSection?.querySelector(".myrate-comment");
 
