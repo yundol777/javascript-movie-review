@@ -24,3 +24,8 @@ interface ModalViewType {
   render(item: MovieItem, count: number): void;
   renderRate(rate: number);
 }
+
+interface InfiniteScrollViewType {
+  start(): void;
+  stop(): void;
+}

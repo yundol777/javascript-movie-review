@@ -8,27 +8,30 @@ import { isLastPage } from "../utils/isLastPage";
 export async function morePopularController(
   state: AppStateType,
   movieListView: MovieListViewType,
-  addButtonView: AddButtonViewType,
+  infiniteScrollView: InfiniteScrollViewType,
 ) {
   try {
     movieListView.skeletonRender(SKELETON_NUMBER);
     const popularMoviesData: movieResponse = await getMovies(
       state.getNextPage(),
     );
-    if (isLastPage(popularMoviesData)) addButtonView.hide();
+    if (isLastPage(popularMoviesData)) infiniteScrollView.stop();
     state.increasePage();
     movieListView.render(popularMoviesData.results);
   } catch (error) {
     if (error instanceof ResponseError) {
       if (error.type === "HTTP") {
         movieListView.errorRender(ERROR_MESSAGE.HTTP);
+        infiniteScrollView.stop();
         return;
       }
       if (error.type === "NETWORK") {
         movieListView.errorRender(ERROR_MESSAGE.NETWORK);
+        infiniteScrollView.stop();
         return;
       }
       movieListView.errorRender(ERROR_MESSAGE.DEFAULT);
+      infiniteScrollView.stop();
     }
   } finally {
     movieListView.skeletonRemover();
@@ -38,7 +41,7 @@ export async function morePopularController(
 export async function moreSearchController(
   state: AppStateType,
   movieListView: MovieListViewType,
-  addButtonView: AddButtonViewType,
+  infiniteScrollView: InfiniteScrollViewType,
 ) {
   try {
     movieListView.skeletonRender(SKELETON_NUMBER);
@@ -46,22 +49,22 @@ export async function moreSearchController(
       state.getSearchValue(),
       state.getNextPage(),
     );
-    if (isLastPage(searchMoviesData)) addButtonView.hide();
+    if (isLastPage(searchMoviesData)) infiniteScrollView.stop();
     state.increasePage();
     movieListView.render(searchMoviesData.results);
   } catch (error) {
     if (error instanceof ResponseError) {
       if (error.type === "HTTP") {
-        addButtonView.hide();
+        infiniteScrollView.stop();
         movieListView.errorRender(ERROR_MESSAGE.HTTP);
         return;
       }
       if (error.type === "NETWORK") {
-        addButtonView.hide();
+        infiniteScrollView.stop();
         movieListView.errorRender(ERROR_MESSAGE.NETWORK);
         return;
       }
-      addButtonView.hide();
+      infiniteScrollView.stop();
       movieListView.errorRender(ERROR_MESSAGE.DEFAULT);
     }
   } finally {

@@ -7,10 +7,11 @@ import { isLastPage } from "../utils/isLastPage";
 export async function searchController(
   state: AppStateType,
   movieListView: MovieListViewType,
-  addButtonView: AddButtonViewType,
+  infiniteScrollView: InfiniteScrollViewType,
 ) {
   try {
     movieListView.reset();
+    infiniteScrollView.start();
     movieListView.skeletonRender(SKELETON_NUMBER);
     const searchMoviesResult: movieResponse = await searchMovies(
       state.getSearchValue(),
@@ -18,26 +19,26 @@ export async function searchController(
     );
     if (searchMoviesResult.total_results === 0) {
       movieListView.emptyRender();
-      addButtonView.hide();
+      infiniteScrollView.stop();
       return;
     }
     if (isLastPage(searchMoviesResult)) {
-      addButtonView.hide();
+      infiniteScrollView.stop();
     }
     movieListView.render(searchMoviesResult.results);
   } catch (error) {
     if (error instanceof ResponseError) {
       if (error.type === "HTTP") {
-        addButtonView.hide();
+        infiniteScrollView.stop();
         movieListView.errorRender(ERROR_MESSAGE.HTTP);
         return;
       }
       if (error.type === "NETWORK") {
-        addButtonView.hide();
+        infiniteScrollView.stop();
         movieListView.errorRender(ERROR_MESSAGE.NETWORK);
         return;
       }
-      addButtonView.hide();
+      infiniteScrollView.stop();
       movieListView.errorRender(ERROR_MESSAGE.DEFAULT);
     }
   } finally {

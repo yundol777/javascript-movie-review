@@ -4,7 +4,6 @@ import {
 } from "./moreButtonController";
 import { popularController } from "./popularController";
 import { searchController } from "./searchController";
-import { AddButtonView } from "../view/addButtonView";
 import { MovieBannerView } from "../view/movieBannerView";
 import { MovieListView } from "../view/movieListView";
 import { SearchView } from "../view/searchView";
@@ -12,12 +11,13 @@ import { AppState } from "../state/appState";
 import { ModalView } from "../view/modalView";
 import { modalController } from "./modalController";
 import { rateController } from "./rateController";
+import { InfiniteScrollView } from "../view/infiniteScrollView";
 
 export class MainController {
   #movieListView;
   #movieBannerView;
   #searchView;
-  #addButtonView;
+  #infiniteScrollView;
   #modalView;
 
   #appState;
@@ -28,9 +28,10 @@ export class MainController {
     );
     this.#movieBannerView = new MovieBannerView();
     this.#searchView = new SearchView(() => this.#handleSearch());
-    this.#addButtonView = new AddButtonView(() => this.#handleAddButton());
     this.#modalView = new ModalView((id: string) => this.#handleRate(id));
-
+    this.#infiniteScrollView = new InfiniteScrollView(() =>
+      this.#getObserver(),
+    );
     this.#appState = new AppState();
   }
 
@@ -44,16 +45,19 @@ export class MainController {
       this.#appState.getPage(),
       this.#movieListView,
       this.#movieBannerView,
-      this.#addButtonView,
+      this.#infiniteScrollView,
     );
   }
 
   async #handleSearch() {
     this.#appState.resetSearch();
-    this.#addButtonView.show();
 
     this.#appState.setValue(this.#searchView.getValue());
-    searchController(this.#appState, this.#movieListView, this.#addButtonView);
+    await searchController(
+      this.#appState,
+      this.#movieListView,
+      this.#infiniteScrollView,
+    );
 
     this.#appState.setIsSearch(true);
     this.#movieBannerView.hide();
@@ -63,18 +67,37 @@ export class MainController {
     );
   }
 
+  #getObserver() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+
+        if (entry.isIntersecting) {
+          this.#handleAddButton();
+        }
+      },
+      {
+        root: null,
+        rootMargin: "100px",
+        threshold: 0,
+      },
+    );
+
+    return observer;
+  }
+
   async #handleAddButton() {
     if (this.#appState.getIsSearch()) {
       moreSearchController(
         this.#appState,
         this.#movieListView,
-        this.#addButtonView,
+        this.#infiniteScrollView,
       );
     } else {
       morePopularController(
         this.#appState,
         this.#movieListView,
-        this.#addButtonView,
+        this.#infiniteScrollView,
       );
     }
   }

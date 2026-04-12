@@ -7,15 +7,16 @@ export async function popularController(
   page: number,
   movieListView: MovieListViewType,
   movieBannerView: MovieBannerViewType,
-  addButtonView: AddButtonViewType,
+  infiniteScrollView: InfiniteScrollViewType,
 ) {
   try {
     movieListView.reset();
+    infiniteScrollView.start();
     movieListView.skeletonRender(SKELETON_NUMBER);
     const popularMovies: movieResponse = await getMovies(page);
     if (popularMovies.results.length === 0) {
       movieListView.emptyRender();
-      addButtonView.hide();
+      infiniteScrollView.stop();
       return;
     }
     movieBannerView.render(popularMovies.results[0]);
@@ -24,16 +25,16 @@ export async function popularController(
     if (error instanceof ResponseError) {
       if (error.type === "HTTP") {
         movieListView.errorRender(ERROR_MESSAGE.HTTP);
-        addButtonView.hide();
+        infiniteScrollView.stop();
         return;
       }
       if (error.type === "NETWORK") {
         movieListView.errorRender(ERROR_MESSAGE.NETWORK);
-        addButtonView.hide();
+        infiniteScrollView.stop();
         return;
       }
       movieListView.errorRender(ERROR_MESSAGE.DEFAULT);
-      addButtonView.hide();
+      infiniteScrollView.stop();
     }
   } finally {
     movieListView.skeletonRemover();
