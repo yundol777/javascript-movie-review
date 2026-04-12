@@ -58,6 +58,7 @@ body.modal-open {
 
 .modal-image img {
   width: 380px;
+  height: 545px;
   border-radius: 16px;
 }
 
@@ -149,6 +150,10 @@ body.modal-open {
   position: relative;
   top: -2px;
   cursor: pointer;
+}
+
+.myrate-score {
+  color: var(--color-bluegray-10);
 }
 
 .modal-detail-section {

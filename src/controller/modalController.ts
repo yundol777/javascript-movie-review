@@ -7,6 +7,7 @@ export async function modalController(
   state: AppStateType,
 ) {
   try {
+    modalView.skeletonRender();
     const movieDetail = await getDetail(Number(id));
     state.setCurrentMovie(id);
 
