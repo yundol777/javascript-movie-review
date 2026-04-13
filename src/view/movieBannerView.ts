@@ -12,6 +12,7 @@ export class MovieBannerView {
     );
     this.#headerBar = document.querySelector<HTMLElement>("#header-bar");
     this.#handle = handle;
+    this.#logoBinding();
   }
 
   render(bannerMovie: Movies) {
@@ -23,6 +24,7 @@ export class MovieBannerView {
       <div class="top-rated-container">
         <div class="top-rated-movie">
           <div class="rate">
+            <img src="./src/asset/images/star_empty.png" class="star" />
             <span class="rate-value">${bannerMovie.vote_average}</span>
           </div>
           <div class="title">${bannerMovie.title}</div>
@@ -39,6 +41,14 @@ export class MovieBannerView {
     if (!detailButton) return;
     detailButton.addEventListener("click", () => {
       this.#handle(id.toString());
+    });
+  }
+
+  #logoBinding() {
+    if (!this.#headerBar) return;
+    const logo = this.#headerBar.querySelector(".logo");
+    logo?.addEventListener("click", () => {
+      window.location.reload();
     });
   }
 
