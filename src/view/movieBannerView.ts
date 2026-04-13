@@ -1,6 +1,8 @@
 const BANNER_IMAGE_URL =
   "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces";
 
+import emptyStar from "../asset/images/star_empty.png";
+
 export class MovieBannerView {
   #section;
   #headerBar;
@@ -24,7 +26,7 @@ export class MovieBannerView {
       <div class="top-rated-container">
         <div class="top-rated-movie">
           <div class="rate">
-            <img src="./src/asset/images/star_empty.png" class="star" />
+            <img src="${emptyStar}" class="star" />
             <span class="rate-value">${bannerMovie.vote_average}</span>
           </div>
           <div class="title">${bannerMovie.title}</div>

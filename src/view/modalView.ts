@@ -1,5 +1,8 @@
 import { USER_RATE } from "../constants/rate";
 import { formatMovieMeta } from "../utils/formatMovieMeta";
+import emptyIcon from "../asset/images/empty_icon.png";
+import filledStar from "../asset/images/star_filled.png";
+import emptyStar from "../asset/images/star_empty.png";
 
 export class ModalView {
   #modalSection;
@@ -53,7 +56,7 @@ export class ModalView {
               <div class="rate-section">
                 <p>평균</p>
                 <div class="rate">
-                  <img src="./src/asset/images/star_filled.png" class="star" />
+                  <img src="${filledStar}" class="star" />
                   <p>${item.vote_average.toFixed(1)}</p>
                 </div>
               </div>
@@ -92,7 +95,7 @@ export class ModalView {
   errorRender(message: string) {
     const emptyList = /*html*/ `
           <div class="modal-error">
-            <img src="./src/asset/images/empty_icon.png" alt="empty_icon" />
+            <img src="${emptyIcon}" alt="empty_icon" />
             <p>${message}</p>
           </div>
     `;
@@ -121,12 +124,11 @@ export class ModalView {
 
   #renderStars(rate: number) {
     return Array.from({ length: 5 }, (_, index) => {
-      let starIcon = "star_filled";
-      if (rate <= index) starIcon = "star_empty";
+      const starIcon = rate <= index ? emptyStar : filledStar;
 
       return `
         <img
-          src="./src/asset/images/${starIcon}.png"
+          src="${starIcon}"
           alt="star"
           id="${index + 1}"
         />
