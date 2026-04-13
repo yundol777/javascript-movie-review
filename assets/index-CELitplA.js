@@ -180,6 +180,7 @@ async function searchController(state, movieListView, infiniteScrollView) {
     movieListView.skeletonRemover();
   }
 }
+const emptyStar = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAxCAYAAACcXioiAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQ4SURBVHgB7VlNctMwFP7UwrRl0/YGzgloNwyURd0TQE5AeoK2J2hyAuAEaU9QOEHMgvCzSW9QcwLChqbDNOI9RVEk106sWGZY5JvR+FlRJD29fxlYYYX/F/I79uQXxKgRAjWANh3Ro0ct0l0ptSPxQj2DYg31oIvZ5qHpLmpAcAno07+ZdWBIq+zoN5ZCgoCoQwLnhhK4oBUS8y7xGoFRhwT49CP9eqSfPb3aEBtoiH16BkJQCdDmW7AMl9VFq0w6GUCqdKvGBENoFXpj0R2LvjSUwCsERDAGtPHGVldiqBHeWf0xxwcEQkgJOMZr+3xxpHQ+Mb//CWfMIRmIDSUtlZlhplLrOJED41orIQgDecabHaP6pPY+E2OOEQChJFBkvC4E3lv0CQIgNw4o8Y6UiCNicQdjanxqQrVtQ0s9xk0bGkU5j+zR+E38tFa/1pF6aD1/GXrqfteJfkySzYkfImfjV8CS4mXjfY7jeUNkn+YXSxvxBR3Amc3II+fnEd4CS+tmQlH2bOGoO2JwC8umFS3aI8MckiuBPol3lnilqs3EyfjxQORjak/yxTsPStq/tYraKikMvY2pak769/SOhyTl3ek8j+aswb68g5qgGb4uM1Z+oxgzzg9+rheyvQTQll9xFcpfLwNeW9nMGG2r+4M9xmWAQ760BrCejjDQacI/hVqT1nYMXtDeMnYmCv7chp0asC2soymelRN5VcjPpC5ryhtGpnOMjnjpSEIhN5CR7reJNZvTCPckiT5OUTNIbU9oVwPYm5fkOnM2z5hb0OSeBNlGXcatjbVtdaX03qTNF0p+YUWWc8Mw1cXjUJWVchS3VPS7+s5RurnoJqNUSalSgI3MAnw6m9ivyoSO/lmVuaRgd1pm7lLJHOfz4gBNuIlaFKQ8HKlDicw7G+sBWmUPxisbVcYtrVixhqeojtiiO0XGWgT/dFqoED+BpNSiOlJrPu+g6c+AdEJ6gupIDLVEwe91L5S9dSOVqnyvpB3EjUkiN7Hr4xj8JBD+9CcFv7D8/MgvzfZjwBXxp0XDPa7XZ3NJvysXXxuILTopGsSbppRgwOkHvfb4unFBQpgYytMOSuuwo/+ZosKM4aB0R+mALMiZJGW7lLLnRddMMdUo+y3BRwKxtZEHuYlSFY6o9ualrtymEOq3nr6GcSGcOWOUhA8Dh5ht7KMhSTLUOFdy8yVWC4F91eBcdPGYLv2n66iVNSf95xAlsZwE9Gmp1FcqPY+tjQxpVk7C1Ccl3VqYFOKpNR/39UyKbktAlpeAjw1I65Xv/c+RFTWnGVuUbhf4cX3ibbgXYYxUzSlVBeZlBz4M9FCsmym147Kfj9Tt9P2DOiOLUgz4qFCnsJ/Tao9vX1ya0vjGnDnTsl7IL5XoU5Sc3GlGyhNR2Vn106lSK6lu66YBLEVNn2RrBZevqoRdYYUVvPAXJrOCc9SFL6sAAAAASUVORK5CYII=";
 const BANNER_IMAGE_URL = "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces";
 class MovieBannerView {
   #section;
@@ -202,7 +203,7 @@ class MovieBannerView {
       <div class="top-rated-container">
         <div class="top-rated-movie">
           <div class="rate">
-            <img src="./src/asset/images/star_empty.png" class="star" />
+            <img src="${emptyStar}" class="star" />
             <span class="rate-value">${bannerMovie.vote_average}</span>
           </div>
           <div class="title">${bannerMovie.title}</div>
@@ -232,9 +233,8 @@ class MovieBannerView {
     this.#headerBar.style.position = "relative";
   }
 }
-const emptyStar = "./src/asset/images/star_empty.png";
-const emptyIcon = "./src/asset/images/empty_icon.png";
-const noImage = "./src/asset/images/no-image.png";
+const emptyIcon = "/javascript-movie-review/assets/empty_icon-9C2OvmM-.png";
+const noImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAEsCAIAAAAJmGvpAAAK/UlEQVR4nO3aa3BU5QGH8XfZLCTZDWaTYMJFQ9AKCgSyEgjJRjEkpAhUqpXxQisopcWq2HqZXpyOnanaatWxtVPHjlVaCgVFqFVLEgjhIohAIBcVb4iQQAJIIiRZQpbQDwdPtkkAMfnD4jy/T++efc/ue8iTs2dPcEy9ZZYBuluEMab07XXnehn4RvFl+Huc6zXgm4mwIEFYkCAsSBAWJAgLEoQFCcKCBGFBgrAgQViQICxIEBYkCAsShAUJwoIEYUGCsCBBWJAgLEgQFiQICxKEBQnCggRhQYKwIEFYkCAsSBAWJAgLEoQFCcKCBGFBgrAgQViQICxIEBYkCAsShAUJwoIEYUGCsCBBWJAgLEgQFiQICxKEBQnCggRhQYKwIEFYkCAsSBAWJAgLEoQFCcKCBGFBgrAgQViQICxIEBYkCAsShAUJwoIEYUGCsCBBWJAgLEgQFiQICxKEBQnCggRhQYKwIEFYkCAsSBAWJAgLEoQFCcKCBGFBgrAgQViQICxIEBYkCAsShAUJwoIEYUGCsCBBWJAgLEgQFiQICxKEBQnCggRhQYKwIEFYkCAsSBAWJAgLEoQFCcKCBGFBgrAgQViQICxIEBYkCAsShAUJwoIEYUGCsCBBWJAgLEgQFiQICxKEBQnCggRhQYKwIEFYkCAsSBAWJAgLEoQFCcKCBGFBgrAgQViQICxIEBYkCAsShAUJwoIEYUGCsCBBWJAgLEgQFiQICxKEBQnCgkTEuV6AMcb079f36T88Zj987PGntm4rtx/ee/eczLFjjDFffHHoh3Puabev1xs7ITcndfjQpKTE6KiopkCgtnZfecW7BUUr6+rqz+iti1au+usL8zquZ3dV9X0P/ip0L6fT+dyzT19wQW97y8xZdzY2NbV78Qd+dk/6KJ/98KcP/LK6es/JVuJyRfgzx/p8IwcNTO7dO6ZHD2dDQ8Phhobdu6u2f/DRO5u3WIfTbm3ttLa23jT99tMe9VkQFmG1c9ONN2wrqzh+/PhpZ+bmjJt523SXq+0oYjyeGI/n0ksGTZk08cV581cUl3R9PRcN6H/F5UPee3+7vWVsRnpoVZ1yu91pI1NDt1zlH7tw0ZJOJw+9Yshdd86Oj4sL3ej1xnq9sRdfNCArM6P1eGvRilVf9wjOgXAMKyUlefQo38ZNW049LTdn3OxZM6zxtrKK+QsW7a2p6ZuUdOvN09JGprpcEdaz3dJW/oTxoWHl5+WedpfMjNEREf/3z+vPyvzX4lc7/sKMSB3+8wfudTqdxpjDDQ2vLFm2acvW+vovYjwerzf20ksGpY9KC7YEO76FfYoNQ2F6jTXtxusdDscpJsTFeWfeNt0a7/xs1+NPPrNrd1VLS3DX7qonnvrjzs92WU/NvG261xvb9fWMHuXzxp54nYHJFw++7NLT7pLtH2sNWr5sok9C/JDB32o3zR0dPfeuH1tVBY4c+fXDj/y3YMWBA58Hg8G6+vodn+4sXFH8yO+eXLV6bdeP4mwKu7COHTtmjLloQH9/ZsYppuXn5difgMteeyMYbPuFDgaDy157wxq7XBH5eeO7sp6PP9lhjHE6nbnjx1lbJubnWYOPPv7kZHv16ZMw+LITDb25vODo0aPWONuf2W7mhLwcj8dtjZcu+0/1nr1dWW34CLuwSlavswY3fm+q9XvcqeHDhtrjiop32z1bVlZhj1OHDzVd8Nb6tw83NBhjcnPGOZ1Ot9udlTnGGFNTW1tWXnmyva7yZ9pn3LXrNtgzx45Jb/f56Esb0fZeGzZ2ZalhJeyusXbs3BmzyTM6/cqkxMSrs7OKS9Z0Oi0pMdEaBAIB6wcfqrGpqbGx0e12G2MSEy/synqOtrSsKln7nckTvd7Y9FG+Pn0SevbsaYwpKCqOjoo62V7+rBOfg7W1+3btrnpnc6n19dDtdvvSRrwTcvnYr19fa9Dc3Lx//4EzWlve+Gvyxl8TuqW4ZM1zz//tjF5EJOzCMsYsevnV9FE+h8Nxw/XXrVm3vtM5UVGR1qC5+WinE440N1thneLH/xUVFhVPmfRth8MxMT83Li7OetOSkrXXTpzQ6fxLBqX0/zIX6yvIltKtx44ds07A2f7M0LDs5QUCR0Jf5IXnn43xeOyHTU2BGbPmdPFAzqZwDGt3VfX6DRuzMjP6JMTn5ozrdE4gcMS6NOnVq2enEyJ79bIGTYFAF9ezb//+rdvKfWkjLh8y2Nqybv2GjnetbFeFXEhZDTU0NL6//cNhQy83xvhGjnBHR9u7NzU1xcTEGGMiI3ud6cL4VnjGFr+ytLW11Rjz3amTrY+edmpqa61BVFRU6G+2xR0dbZ2ujDG1tfu6vp7lhStCHxYUrjzZzB49eli3c40xdfX19gW+fZZyuSIyMtLt+Xv21liDyMjI+Pi2+1h3zL5r2i0zVq9Z1/XFnxNhGtbemtrVa98yxnhjY9vdZrRUVLZdsA/vcHmemjrMHpd3uLT/GsrKK+2UP/jwI/t2RkcjUofZ9069sbGL/vni4gUvLV7w0u0zpttzQk9ppVvb/saQMaYtuPNdmIZljHllyTLrJkKn3w0Liort+0PXTb42dI7T6Zw6ZZI1bmkJFq4o7vpijh8/Xlh04sb38pOfrowx2Vntbyh0NGTwZQkJ8da4cEWx/bF4/dQp9vbzXTheY1n2H/i8uGTNhNycTp89eLDu7/MX3jHz+8aYlJTkB++bO3/h4pqamqTExFtvnpaSkmxNm/ePBQcP1nXLel5/c/nrby4/9ZzIyEj7j4Nvbdj4zJ/+Evps//79nn7iUWOMw+HIzhq79N+vG2MaGxuf/fPzD94/1+FwxHg8v334oUUvv1q6tayhsTE+Li4hIaFbFn/2hW9YxpglS1+75upsl8vV6bMFRSuNMT+YfrPLFZE2MrXdJ2YwGJw3f2G3nK6+ujHpV9pfJjZtLm33bHX1nr01tX2TEo0x2f5MKyxjzJat2x79/VN33zm7d++YuDjvnB/d8RXfruPtBmPMLx76zSc7Pv36x9BNwjqsurr6wqLiSdfmn2xCQdHKTVtK8/NyUocNS0y8MCoqMhA4Ulu7r7zy3cKi4s8PHjybqzUhN9aDwWDof9Cwbd5cOmXyRGPMgP79UgYmf7rzM2t7WXnFT+beP+5qv2/kiIHJF3s8ntbWY4cOHT50+HBVVXXle9srK987a0fRLRxTb5lV+vb5+tUD4cmX4Q/fi3ec1wgLEoQFCcKCBGFBgrAgQViQICxIEBYkCAsShAUJwoIEYUGCsCBBWJAgLEgQFiQICxKEBQnCggRhQYKwIEFYkCAsSBAWJAgLEoQFCcKCBGFBgrAgQViQICxIEBYkCAsShAUJwoIEYUGCsCBBWJAgLEgQFiQICxKEBQnCggRhQYKwIEFYkCAsSBAWJAgLEoQFCcKCBGFBgrAgQViQICxIEBYkCAsShAUJwoIEYUGCsCBBWJAgLEgQFiQICxKEBQnCggRhQYKwIEFYkCAsSBAWJAgLEoQFCcKCBGFBgrAgQViQICxIEBYkCAsShAUJwoIEYUGCsCBBWJAgLEgQFiQICxKEBQnCggRhQYKwIEFYkCAsSBAWJAgLEoQFCcKCBGFBgrAgQViQICxIEBYkCAsShAUJwoIEYUGCsCBBWJAgLEgQFiQICxKEBQnCggRhQYKwIEFYkCAsSBAWJAgLEoQFCcKCBGFBgrAgQViQICxIEBYkCAsShAUJwoIEYUGCsCBBWJAgLEgQFiQijDG+DP+5Xga+af4HqMCgLKc1yDMAAAAASUVORK5CYII=";
 class MovieListView {
   #titleSection;
   #listSection;
@@ -435,6 +435,7 @@ function formatMovieMeta(date, genres = []) {
   if (!genreNames) return year;
   return `${year} · ${genreNames}`;
 }
+const filledStar = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAxCAYAAACcXioiAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKXSURBVHgB7ZhBbtQwFIZ/zyAxu8IN0hNANqh0Q+YG9ASlJyhzgpmeADgBvQG9QbOCJXMDwgnIqoyEqPnjcWmVxElsPU9bKZ/kZuQ4rp/f+/OeA4yMjDxqFCKhvyHh7B+gUWKGhUp5jcATxGPJxb81v67wk39XiMAE8cj+/5riVH/HM0QgigEMn3e8JLcdXPzvOwYJEssDx40ehVNEQFzERrzAj9abU6TqFdYQJIYHls47f6yoBYlhQOa8E0HMogY0xNsYIC9maQ8c944QFrOYiDvFW2eG51KZWdIDy8Ejr/AeQnh7wIhwwzZl+8s2YbvGC/iXCmd8ds1nS85Vcq6qZip9PdNqAMOh2s3ENMUFattUnHKguQAaoYwhBbarLNm3Vq9pdI2GAfZN8hkPEc2q9hAf73ZNWgbtZpdDUM3wahhgLTzDQ0PjE0PovN7tFDFDaQWfN0tMWkLnhs63EI3IsNVDgvtgK+Yj7nzuGtL7GrUJ6hK7N6Jgm3PxRdeg3kRmJ5iz5dgdOXNC2rf4Cq9EthNdVGI9HJ6p/TNxTCM6xOoiqJjTX3kwUfgCWeZdYnURXI3SE1XlmUCGgovfRwBhHrhktp7hFyQJLLHDyukZXkKaTdicYQZo+cN56JyhB5o3kCdoTv/XaIz4vyFAB/4eeBrnE6Eh4ItFSAhlA8cVbCe2FQOfyeBJiAH9scpywNYy56aG3yA1fRJz1/CrhfriX/GQXpUDjow6qLL11IGfB1zxr82he6EOzK7nrser6tJmXPeJz1MHfgao1mSTsz/1KcJoxIqXfT530XI7gwd+BlzzH2rr3u31hIuZD6nb6xhvHOAIdZFPsAcPQsrpBNUuzXAh9XnQzrnipuxxRYuQDRkZGRm5H/4BIkyx5W7xkPAAAAAASUVORK5CYII=";
 class ModalView {
   #modalSection;
   #closeButton;
@@ -482,7 +483,7 @@ class ModalView {
               <div class="rate-section">
                 <p>평균</p>
                 <div class="rate">
-                  <img src="./src/asset/images/star_filled.png" class="star" />
+                  <img src="${filledStar}" class="star" />
                   <p>${item.vote_average.toFixed(1)}</p>
                 </div>
               </div>
@@ -519,7 +520,7 @@ class ModalView {
       /*html*/
       `
           <div class="modal-error">
-            <img src="./src/asset/images/empty_icon.png" alt="empty_icon" />
+            <img src="${emptyIcon}" alt="empty_icon" />
             <p>${message}</p>
           </div>
     `
@@ -541,11 +542,10 @@ class ModalView {
   }
   #renderStars(rate) {
     return Array.from({ length: 5 }, (_, index) => {
-      let starIcon = "star_filled";
-      if (rate <= index) starIcon = "star_empty";
+      const starIcon = rate <= index ? emptyStar : filledStar;
       return `
         <img
-          src="./src/asset/images/${starIcon}.png"
+          src="${starIcon}"
           alt="star"
           id="${index + 1}"
         />
