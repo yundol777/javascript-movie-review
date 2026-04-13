@@ -4,12 +4,14 @@ const BANNER_IMAGE_URL =
 export class MovieBannerView {
   #section;
   #headerBar;
+  #handle;
 
-  constructor() {
+  constructor(handle: (id: string) => void) {
     this.#section = document.querySelector<HTMLElement>(
       ".background-container",
     );
     this.#headerBar = document.querySelector<HTMLElement>("#header-bar");
+    this.#handle = handle;
   }
 
   render(bannerMovie: Movies) {
@@ -28,6 +30,16 @@ export class MovieBannerView {
         </div>
       </div>
     `;
+
+    this.#binding(bannerMovie.id);
+  }
+
+  #binding(id: number) {
+    const detailButton = this.#section?.querySelector(".detail");
+    if (!detailButton) return;
+    detailButton.addEventListener("click", () => {
+      this.#handle(id.toString());
+    });
   }
 
   hide() {

@@ -26,7 +26,9 @@ export class MainController {
     this.#movieListView = new MovieListView((id: string) =>
       this.#handleMovieItem(id),
     );
-    this.#movieBannerView = new MovieBannerView();
+    this.#movieBannerView = new MovieBannerView((id: string) =>
+      this.#handleMovieItem(id),
+    );
     this.#searchView = new SearchView(() => this.#handleSearch());
     this.#modalView = new ModalView((id: string) => this.#handleRate(id));
     this.#infiniteScrollView = new InfiniteScrollView(() =>
