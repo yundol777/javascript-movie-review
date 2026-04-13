@@ -11,6 +11,7 @@ body.modal-open {
   left: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경을 위해 설정 */
   backdrop-filter: blur(10px); /* 블러 효과 적용 */
   display: flex;
@@ -37,6 +38,7 @@ body.modal-open {
   z-index: 2;
   position: relative;
   width: 1000px;
+  height: 588px;
 }
 
 .close-modal {
@@ -50,9 +52,11 @@ body.modal-open {
   color: white;
   font-size: 20px;
   cursor: pointer;
+  display: flex;
 }
 
 .modal-container {
+  height: 100%;
   display: flex;
 }
 
@@ -73,7 +77,6 @@ body.modal-open {
   gap: 16px;
 
   height: 545px;
-  overflow: hidden;
 }
 
 .modal-description h2 {
@@ -182,4 +185,74 @@ body.modal-open {
 .modal-error p {
   font-size: 24px;
   font-weight: 600;
+}
+
+@media (max-width: 1279px) {
+  .modal-background {
+    align-items: end;
+  }
+
+  .modal {
+    position: relative;
+    width: 100%;
+    height: 85%;
+    border-radius: 0;
+    padding: 40px 20px;
+    overflow: hidden;
+  }
+
+  .close-modal {
+    position: fixed;
+    top: auto;
+  }
+
+  .modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .modal-image img {
+    width: 200px;
+    height: 300px;
+    border-radius: 16px;
+  }
+
+  .modal-title-section {
+    align-items: center;
+    gap: 8px;
+  }
+
+  .modal-detail-section {
+    overflow: auto;
+  }
+
+  .modal-detail-section .detail {
+    flex: 1;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 670px) {
+  .modal {
+    width: 100%;
+    height: 70%;
+    border-radius: 0;
+    padding: 40px 20px;
+  }
+
+  .modal-myrate-section {
+    align-items: center;
+  }
+
+  .myrate-section {
+    flex-direction: column;
+  }
+
+  .modal-image {
+    display: none;
+  }
 }

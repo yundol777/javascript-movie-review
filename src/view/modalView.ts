@@ -79,37 +79,12 @@ export class ModalView {
     this.#starsBinding();
   }
 
-  skeletonRender() {
+  spinerRender() {
     if (!this.#detailSection) return;
 
     this.#detailSection.innerHTML = `
-      <div class="modal-image skeleton-card">
-        <div
-          class="thumbnail skeleton-box"
-          style="width: 380px; height: 545px; border-radius: 16px;"
-        ></div>
-      </div>
-      <div class="modal-description skeleton-card">
-        <div
-          class="modal-title-section"
-        >
-          <div
-            class="skeleton-title skeleton-box"
-            style="width: 72%; height: 36px; border-radius: 8px;"
-          ></div>
-          <div
-            class="skeleton-box"
-            style="width: 38%; height: 18px; border-radius: 6px;"
-          ></div>
-          <div
-            class="skeleton-box"
-            style="width: 32%; height: 28px; border-radius: 8px;"
-          ></div>
-        </div>
-        <div
-          class="skeleton-box"
-          style="width: 100%; height: 131px; border-radius: 16px;"
-        ></div>
+      <div class="modal-loading">
+        <div class="spinner"></div>
       </div>
     `;
   }
@@ -176,12 +151,14 @@ export class ModalView {
   open() {
     if (!this.#modalSection) return;
 
+    document.body.style.overflow = "hidden";
     this.#modalSection.classList.add("active");
   }
 
   close() {
     if (!this.#modalSection) return;
 
+    document.body.style.overflow = "auto";
     this.#modalSection.classList.remove("active");
   }
 }
