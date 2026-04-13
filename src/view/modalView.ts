@@ -79,7 +79,7 @@ export class ModalView {
     this.#starsBinding();
   }
 
-  spinerRender() {
+  spinnerRender() {
     if (!this.#detailSection) return;
 
     this.#detailSection.innerHTML = `
