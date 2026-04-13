@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>영화 리뷰</title>
-    <script type="module" crossorigin src="/javascript-movie-review/assets/index-DcPOQ_hS.js"></script>
-    <link rel="stylesheet" crossorigin href="/javascript-movie-review/assets/index-D4-QOXh7.css">
+    <script type="module" crossorigin src="/javascript-movie-review/assets/index-p5O4gofW.js"></script>
+    <link rel="stylesheet" crossorigin href="/javascript-movie-review/assets/index-Ceg-3eKt.css">
   </head>
   <body>
     <div id="app">
@@ -52,7 +52,8 @@
             지금 인기 있는 영화
           </h2>
           <ul class="thumbnail-list"></ul>
-          <button class="thumbnail-add-button" id="add-button">더 보기</button>
+          <!-- <button class="thumbnail-add-button" id="add-button">더 보기</button> -->
+          <div id="sentinel"></div>
         </section>
       </main>
 
@@ -60,6 +61,15 @@
         <p>&copy; 우아한테크코스 All Rights Reserved.</p>
         <p><img src="/javascript-movie-review/assets/woowacourse_logo-C2VvP7wQ.png" width="180" /></p>
       </footer>
+    </div>
+
+    <div class="modal-background" id="modalBackground">
+      <div class="modal">
+        <button class="close-modal" id="closeModal">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFcSURBVHgBndVRToMwGAfw7+uyPXOEeQM9gezRGOcNBjzqNHEn8AhiIizxpYDxeZHps7uBu4EcwefpWlsYZsNSyv7JlrS0v0D7FQA2eXx+O5Q/2COUzqzp09wu2yj/wiS94xxu8g4E/3I0nJiCYfzqMGC+gCzRzAjrDjCg4u7I+mNnJEI0Hg09E5ADi3Z7+T1RjubgBklKoTVYhIy90yUHHreBNaB4/J6PZeshfokQ0Pk3rLIUerA7uPBOMtzubYJNwGJ4JXWwqIqFqBC7CVSiOtgErEUNYSWoRWXCZP7OObcVl74EeKQCZdR1CptdVoMyFut839bNxVqwprArs5UnD/cGNTAxBOWmHJiePDQE/3bZ5ORhG7BME4xTOusz0vk0BZtgcfImhEHPagvKXDnnrmqNRRn2yQpWYiLP2oBamOEyX9NiCUj+OZHvQxNwOwFNXdKB4581xtfe2eIXnjrtn65LhjUAAAAASUVORK5CYII=" />
+        </button>
+        <div class="modal-container" id="modalContainer"></div>
+      </div>
     </div>
   </body>
 </html>
