@@ -10,7 +10,7 @@ export class ModalView {
   #detailSection;
   #handle;
 
-  constructor(handle: (id: string) => {}) {
+  constructor(handle: (id: string) => void) {
     this.#modalSection = document.querySelector("#modalBackground");
     this.#closeButton = document.querySelector("#closeModal");
     this.#detailSection = document.querySelector("#modalContainer");
@@ -44,42 +44,142 @@ export class ModalView {
     this.#detailSection.innerHTML = `
          <div class="modal-image">
             <img
-              src="https://image.tmdb.org/t/p/original/${item.poster_path}"
+              src=""
             />
           </div>
           <div class="modal-description">
             <div class="modal-title-section">
-              <h2>${item.title}</h2>
-              <p class="category">
-                ${formatMovieMeta(item.release_date, item.genres)}
-              </p>
+              <h2 class="modal-title"></h2>
+              <p class="category"></p>
               <div class="rate-section">
                 <p>평균</p>
                 <div class="rate">
-                  <img src="${filledStar}" class="star" />
-                  <p>${item.vote_average.toFixed(1)}</p>
+                  <img src="" class="star" />
+                  <p></p>
                 </div>
               </div>
             </div>
             <div class="modal-myrate-section">
               <h3 class="myrate-title">내 별점</h3>
               <div class="myrate-section">
-                <div class="myrate-stars">
-                  ${this.#renderStars(rateCount)}
+                <div class="myrate-stars"></div>
+                <div class="myrate-comment"> 
+                  <span class="myrate-text"></span> 
+                  <span class="myrate-score"></span>
                 </div>
-                <p class="myrate-comment">${USER_RATE[rateCount]} <span class="myrate-score">(${rateCount * 2}/10)</span></p>
               </div>
             </div>
             <div class="modal-detail-section">
               <h3 class="detail-title">줄거리</h3>
-              <p class="detail">
-                ${item.overview}
-              </p>
+              <p class="detail"></p>
             </div>
           </div>
     `;
 
+    this.#setModalImage(item.poster_path);
+    this.#setModalDetail(item);
+    this.renderRate(rateCount);
     this.#starsBinding();
+  }
+
+  #setModalImage(path: string) {
+    if (!this.#detailSection) return;
+
+    const posterImage =
+      this.#detailSection?.querySelector<HTMLImageElement>(".modal-image img");
+    if (!posterImage) return;
+
+    const poster_path = "https://image.tmdb.org/t/p/original/" + path;
+
+    posterImage.src = poster_path;
+  }
+
+  #setModalDetail(item: MovieItem) {
+    if (!this.#detailSection) return;
+
+    // title
+    const titleSection =
+      this.#detailSection.querySelector<HTMLElement>(".modal-title");
+    if (!titleSection) return;
+
+    titleSection.textContent = item.title;
+
+    // category
+    const categorySection =
+      this.#detailSection.querySelector<HTMLElement>(".category");
+    if (!categorySection) return;
+
+    categorySection.textContent = formatMovieMeta(
+      item.release_date,
+      item.genres,
+    );
+
+    // rate
+    const rateStart =
+      this.#detailSection.querySelector<HTMLImageElement>(".rate img");
+    if (!rateStart) return;
+
+    rateStart.src = filledStar;
+
+    const rateSection =
+      this.#detailSection.querySelector<HTMLElement>(".rate p");
+    if (!rateSection) return;
+
+    rateSection.textContent = item.vote_average.toFixed(1);
+
+    // detail
+    const detailSection =
+      this.#detailSection.querySelector<HTMLElement>(".detail");
+    if (!detailSection) return;
+
+    detailSection.textContent = item.overview;
+  }
+
+  renderRate(rateCount: number) {
+    if (!this.#detailSection) return;
+
+    const myStars = this.#detailSection?.querySelector(".myrate-stars");
+    if (!myStars) return;
+
+    myStars.replaceChildren(...this.#renderStars(rateCount));
+
+    const textSection =
+      this.#detailSection.querySelector<HTMLElement>(".myrate-text");
+    if (!textSection) return;
+
+    textSection.textContent = USER_RATE[rateCount];
+
+    const scoreSection =
+      this.#detailSection.querySelector<HTMLElement>(".myrate-score");
+    if (!scoreSection) return;
+
+    scoreSection.textContent = `(${rateCount * 2}/10)`;
+  }
+
+  #renderStars(rate: number) {
+    return Array.from({ length: 5 }, (_, index) => {
+      const starImage = document.createElement("img");
+
+      starImage.src = rate <= index ? emptyStar : filledStar;
+      starImage.alt = "star";
+      starImage.id = String(index + 1);
+
+      return starImage;
+    });
+  }
+
+  #starsBinding() {
+    const starSection = this.#detailSection?.querySelector(".myrate-stars");
+
+    starSection?.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const item = target.closest("img");
+      if (!item?.id) return;
+
+      this.#handle(item.id);
+    });
   }
 
   spinnerRender() {
@@ -104,50 +204,24 @@ export class ModalView {
     this.#detailSection.innerHTML = emptyList;
   }
 
-  renderRate(rate: number) {
-    const myComment = this.#detailSection?.querySelector(".myrate-comment");
+  showToast(message: string) {
+    const toastMessege = document.querySelector(".toast-error-text");
+    if (!toastMessege) return;
+    toastMessege.textContent = message;
 
-    if (!myComment) return;
+    const toastSection = document.querySelector<HTMLElement>(".toast-error");
+    if (!toastSection) return;
+    toastSection.classList.add("active");
 
-    myComment.innerHTML = `
-      ${USER_RATE[rate]} <span class="myrate-score">(${rate * 2}/10)</span>
-    `;
-
-    const myStars = this.#detailSection?.querySelector(".myrate-stars");
-
-    if (!myStars) return;
-
-    myStars.innerHTML = `
-      ${this.#renderStars(rate)}
-    `;
+    window.setTimeout(() => {
+      this.#hideToast();
+    }, 1500);
   }
 
-  #renderStars(rate: number) {
-    return Array.from({ length: 5 }, (_, index) => {
-      const starIcon = rate <= index ? emptyStar : filledStar;
-
-      return `
-        <img
-          src="${starIcon}"
-          alt="star"
-          id="${index + 1}"
-        />
-      `;
-    }).join("");
-  }
-
-  #starsBinding() {
-    const starSection = this.#detailSection?.querySelector(".myrate-stars");
-
-    starSection?.addEventListener("click", (event) => {
-      const target = event.target;
-      if (!(target instanceof Element)) return;
-
-      const item = target.closest("img");
-      if (!item?.id) return;
-
-      this.#handle(item.id);
-    });
+  #hideToast() {
+    const toastSection = document.querySelector<HTMLElement>(".toast-error");
+    if (!toastSection) return;
+    toastSection.classList.remove("active");
   }
 
   open() {

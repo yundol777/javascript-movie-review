@@ -23,6 +23,7 @@ interface ModalViewType {
   close(): void;
   render(item: MovieItem, count: number): void;
   renderRate(rate: number);
+  showToast(message: string);
   spinnerRender(): void;
   errorRender(message: string): void;
 }
