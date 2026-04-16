@@ -14,11 +14,11 @@ export async function modalController(
     state.setCurrentMovie(id);
 
     const myRate = await getRate(id);
-    if (myRate === "0") {
+    if (myRate === 0) {
       modalView.render(movieDetail, 0);
       return;
     }
-    modalView.render(movieDetail, Number(myRate));
+    modalView.render(movieDetail, myRate);
   } catch (error) {
     if (error instanceof ResponseError) {
       if (error.type === "HTTP") {
